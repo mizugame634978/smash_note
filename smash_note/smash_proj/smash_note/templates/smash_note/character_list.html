@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% block content %}
+
+        <h1>character list</h1>
+
+          <div class="row-md-2">{#元々１２列あったのが１つが２列分使うので、６列しか無理#}
+            {% for character in object_list %}
+
+              <a href="{% url 'smash_note:character_detail' character.id %}">
+                <img src="{{ character.image_url.url }}" alt="{{ character.character_name }}の画像">
+              </a>
+              {% if forloop.counter0|add:1|divisibleby:6 %}
+              </div>
+                <div>
+                {% comment %} <p>s_div</p> {% endcomment %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+
+{%endblock%}

@@ -1,0 +1,38 @@
+{% extends './base.html' %}
+{% block content %}
+
+
+        <h1>{{object|yesno:'更新,作成'}}</h1>
+        {%comment%}
+        object は、UpdateView や CreateView で使用される model で指定されたモデルのオブジェクトを表します。yesno フィルターは、条件式が真である場合には第1引数の文字列、偽である場合には第2引数の文字列を表示するフィルターです。
+
+        今回の例では、テンプレート内でオブジェクトが存在する場合（つまり更新する場合）は "更新"、存在しない
+        場合（つまり新規作成する場合）は "作成" を表示するようになっている
+        {%endcomment%}
+
+        <form method='post'>{% csrf_token %}
+            {{form.as_p}}
+            <button type='submit' class='submit'> {{object|yesno:'更新,作成'}} </button>
+
+        </form>
+
+        {% comment %} <div>
+            <a href='JavaScript:history.back()'>&lt; 戻る</a>
+            {% if object|yesno:"yes,no" == "yes" %}{#オブジェクトがすでに存在する場合、削除リンクを表示#}
+            <a href="{% url 'smash_note:memo_delete' matchresult.pk %}">削除</a>
+            {% endif %}
+        </div> {% endcomment %}
+        <div style="display: flex; justify-content: space-between;max-width:300px;">
+            {% comment %} <button onclick="window.history.back()">戻る</button> {% endcomment %}
+            <a href='JavaScript:history.back()'>&lt; 戻る</a>
+            {% if object|yesno:"yes,no" == "yes" %}
+            {% comment %} <a href="{% url 'smash_note:memo_delete' matchresult.pk %}">削除</a> {% endcomment %}
+            <button type='submit' class='submit'><a href="{% url 'smash_note:memo_delete' matchresult.pk %}">削除</a></button>
+            {% endif %}
+        </div>
+
+
+
+
+{%endblock%}
+

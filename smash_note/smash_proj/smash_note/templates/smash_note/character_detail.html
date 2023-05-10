@@ -1,0 +1,57 @@
+{% extends './base.html' %}
+{% block content %}
+
+
+
+        <h1><img src="{{ character.image_url.url }}" alt="{{ character.character_name }}の画像"></h1>
+
+          <button type = "submit" class ="submit"><a href="{% url "smash_note:memo_create2" character.pk %}">作成</a></button>
+
+
+
+           {% comment %} <p>勝利数: {{ wins }}</p>
+<p>敗北数: {{ losses }}</p>
+<p>総対戦数: {{ total_matches }}</p> {% endcomment %}
+<p>勝率: {{ win_rate }}%</p>
+
+
+
+
+
+
+          {% for result in match_results %}{#すべてのresultを表示#}
+              {% if result.opponent_character_id.id == character.pk %}{#このキャラにたいするmemoを表示#}
+                  {% comment %} <p>{{ result.memo }}</p> {% endcomment %}
+                  <article class = "media">
+                    <div class = "media-content">
+                        <div class ="content">
+                            <p>
+                                <strong>
+                                {% comment %} {{result.win_flag}} {% endcomment %}
+                                    <small>{{result.memo_date}}</small>
+                                    {% if result.win_flag == True%}
+                                    <small>勝ち</small>
+                                    {% elif result.win_flag == False%}
+                                    <small>負け</small>
+                                    {% else %}
+                                    <small>無記入</small>
+                                    {% endif %}
+
+                                    {% comment %} <small>{{result.win_flag}}</small> {% endcomment %}
+                                    <a href="{% url "smash_note:memo_update" result.pk %}">編集</a>
+                                </strong>
+                                <br />
+                                {{ result.memo }}
+                            </p>
+
+                        </div>
+                    </div>
+                </article>
+
+
+              {% endif %}
+          {% endfor %}
+
+
+{%endblock%}
+
