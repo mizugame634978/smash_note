@@ -3,8 +3,8 @@
 twitterのようにキャラ対を自分だけのスペースに投稿できる
 
 ![キャラセレ](https://github.com/mizugame634978/smash_note/assets/83535489/548d583f-3970-4c19-aad0-c8d3991eac76)
-![記録](https://github.com/mizugame634978/smash_note/assets/83535489/63cb5691-5415-4d98-bc57-4026c0e9872d)
-![ツール](https://github.com/mizugame634978/smash_note/assets/83535489/5c5e2684-39cd-4c2d-869b-bb1bf10c83fd)
+![スクリーンショット 2023-11-30 132207](https://github.com/mizugame634978/smash_note/assets/83535489/628e511a-7c6c-43b8-a1b3-6cf5e680e330)
+![スクリーンショット 2023-11-30 132233](https://github.com/mizugame634978/smash_note/assets/83535489/df016c51-4a42-4408-9168-7ac0c57352f5)
 
 
 # 機能
