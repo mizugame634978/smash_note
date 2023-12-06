@@ -1,9 +1,20 @@
 from pathlib import Path
+from dj_database_url import parse as dburl
+import os
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from decouple import config
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import os
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR,'.env'))
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -13,7 +24,7 @@ SECRET_KEY = 'django-insecure-+)hqa4=iz91hdid8@%hn%7##$khgh^-9e515xh(vw38c#y&x@i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1','smash_note.onrender.com']
 
 
 # Application definition
@@ -41,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,15 +91,10 @@ WSGI_APPLICATION = 'smash_proj.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+default_dburl = "sqlite://"+str(BASE_DIR/"db.sqlite3")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
-        'USER':'testuser',
-        'PASSWORD':'test',
-        'HOST':'127.0.0.1',
-        'PORT':'5432',
-    }
+    'default':config("DATABASE_URL",default= default_dburl,cast=dburl),
+
 }
 
 # Password validation
@@ -125,7 +132,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = str(BASE_DIR/"staticfiles")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = ([os.path.join(BASE_DIR/'static'),])
+
+SUPERUSER_NAME=env("SUPERUSER_NAME")
+SUPER_USER_EMAIL = env('SUPER_USER_EMAIL')
+SUPER_USER_PASSWORD=env('SUPER_USER_PASSWORD')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build','static')#vercel
 
 # Default primary key field type
